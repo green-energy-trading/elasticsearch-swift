@@ -1,3 +1,5 @@
+import JSON
+
 public protocol ESContext {
 }
 
@@ -10,11 +12,11 @@ public protocol ESIndexable : ESIndexNameable {
     var esId: String { get }
     var esParentId: String? { get }
     
-    func serializeES(in: ESContext?) throws -> JSONStringRepresentable
+    func serializeES(in: ESContext?) throws -> JSON
 }
 
 extension ESIndexable {
-    public func serializeES() throws -> JSONStringRepresentable {
+    public func serializeES() throws -> JSON {
         return try serializeES(in: nil)
     }
     

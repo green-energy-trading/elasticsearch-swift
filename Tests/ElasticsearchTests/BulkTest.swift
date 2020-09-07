@@ -46,7 +46,7 @@ class BulkTest: XCTestCase {
             static var esType: String = "Clone"
             static var esIndex: ESIndex = ESIndex("clone")
             
-            func serializeES(in: ESContext?) throws -> JSONStringRepresentable {
+            func serializeES(in: ESContext?) throws -> JSON {
                 return JSON(["name": JSON(name), "data": JSON(data)])
             }
             var esId: String = "1"
