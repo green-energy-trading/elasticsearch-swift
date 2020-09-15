@@ -56,7 +56,7 @@ public class ESBulkProxy {
         guard let prefixedIndex = client.prefixIndex(index).string else { throw ESError.missingIndexName }
         
         let parent = parentId == nil ? "" : ",\"_parent\": \"\(parentId!)\""
-        var actionBytes = "{\"\(action.rawValue)\":{\"_index\":\"\(prefixedIndex)\"\(parent),\"_type\":\"\(type)\",\"_id\":\"\(id)\"}}\n".bytes
+        var actionBytes = "{\"\(action.rawValue)\":{\"_index\":\"\(prefixedIndex)\"\(parent),\"_id\":\"\(id)\"}}\n".bytes
         if let jsonBytes = data?.JSONString()?.bytes {
             actionBytes += jsonBytes
             if actionBytes.last != NewLine { actionBytes.append(NewLine)}
