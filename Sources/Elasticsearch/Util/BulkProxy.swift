@@ -76,6 +76,16 @@ public class ESBulkProxy {
         }
         try self.append(action: action, index: indexableType.esIndex, type: indexableType.esType, id: indexable.esId, parentId: indexable.esParentId, data: data)
     }
+    
+    public func append(action: ESBulkAction, index: String, type: String, id: String, parentId: String? = nil, data: JSONStringRepresentable?) throws {
+        let parent = parentId == nil ? "" : ",\"_parent\": \"\(parentId!)\""
+        var actionBytes = "{\"\(action.rawValue)\":{\"_index\":\"\(index)\"\(parent),\"_id\":\"\(id)\"}}\n".bytes
+        if let jsonBytes = data?.JSONString()?.bytes {
+            actionBytes += jsonBytes
+            if actionBytes.last != NewLine { actionBytes.append(NewLine)}
+        }
+        try append(bytes: actionBytes)
+    }
 }
 
 extension ESBulkProxy : ESIndexer {
