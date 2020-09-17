@@ -42,6 +42,17 @@ extension ESClient : ESIndexer {
         return try search(parameters: requestParams, body: body)
     }
     
+    public func search(index: String? = nil, type: String? = nil, body: JSONStringRepresentable, parameters: ESParams = [:]) throws -> ESResponse {
+        var requestParams = parameters
+        if let index = index {
+            requestParams["index"] = ESParam(index)
+        }
+        if let type = type {
+            requestParams["type"] = ESParam(type)
+        }
+        return try search(parameters: requestParams, body: body)
+    }
+    
     // MARK: - Index
     
     public func index(parameters: ESParams = [:], body: JSONStringRepresentable) throws -> ESResponse {
