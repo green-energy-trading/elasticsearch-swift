@@ -35,6 +35,7 @@ public class ESBulkProxy {
         guard !buffer.isEmpty else { return }
         ensureBufferEndsWithNewline()
         client.logger?.log(.debug, message: "Flushing Elasticsearch bulk proxy: \(recordsInBuffer), \(buffer.count) bytes.")
+        client.logger?.log(.debug, message: String(bytes: buffer))
         let data = Data(bytes: buffer)
         let _ = try client.bulk(body: data)
         resetBuffer()
