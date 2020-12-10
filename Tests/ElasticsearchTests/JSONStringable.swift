@@ -19,10 +19,10 @@ class JSONStringRepresentableTest: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func testDictionary() throws {
-        let dict : Dictionary<String,Any> = ["hello": "yes", "number": 1]
-        XCTAssertEqual(dict.JSONString(pretty: false), "{\"hello\":\"yes\",\"number\":1}")
-    }
+// This test does not guarantee the order of properties and is spurious
+//    func testDictionary() throws {
+//        let dict : Dictionary<String,Any> = ["hello": "yes", "number": 1]
+//        XCTAssertEqual(dict.JSONString(pretty: false), "{\"hello\":\"yes\",\"number\":1}")
+//    }
 }
  
