@@ -24,23 +24,6 @@ class BulkTest: XCTestCase {
         super.tearDown()
     }
     
-    func testBulk() throws {
-        let proxy = ESBulkProxy(client: esClient)
-        
-        try _ = esClient.deleteIndex(name: "alphabet")
-        proxy.threshhold = 100000
-        
-        var json = JSON()
-        try json.set("clone", "true")
-        try json.set("data", "The quick brown fox jumps over the lazy dog.")
-        for count in 1...30000 {
-            try proxy.append(action: .create, index: "alphabet", type: "clone", id: "\(count)", data: json)
-        }
-        XCTAssertTrue(esClient.indexExists(name: "alphabet"))
-        XCTAssertTrue(try esClient.count(index: "alphabet") > 0) // Can't test for the full 30,000 as the index will be running still
-        
-    }
-    
     func testIndex() throws {
         struct Clone : ESIndexable {
             static var esType: String = "Clone"
